@@ -3,19 +3,21 @@ import java.util.Scanner;
 public class Logic {
     int currency = 0;
     int floor = 1;
+    Scanner s;
 
     public Logic() {
-        Scanner scan = new Scanner(System.in);
+        s = new Scanner(System.in);
 
         System.out.println("Welcome to the world!");
         System.out.print("What do you call yourself?\n>> ");
-        String playerName = scan.nextLine();
-        Menu menu = new Menu(playerName);
-        menu.printIntro();
+        String playerName = s.nextLine();
+        Menu.printIntro(playerName);
 
         // Create player and enemy instances
-        Player p = new Player(playerName, 100, 100, 10, 20, floor, 1, 0);
-        Enemy e = new Enemy("Ogre", 50, 50, 10, 10, floor);
+        Weapon playerWeapon = new Weapon();
+        Weapon enemyWeapon = new Weapon(5, 10);
+        Character p = new Character(playerName, 100, 100, 10, 1, 0, playerWeapon);
+        Character e = new Character("Dragon", 100, 10, 5, 1, 0, enemyWeapon);
 
         p.printHP();
         e.printHP();
@@ -23,9 +25,9 @@ public class Logic {
         // Combat loop
         while (p.isAlive() && e.isAlive()) {
             System.out.print("Press [Enter] to continue >> ");
-            scan.nextLine();
-            menu.printOptions();
-            String option = scan.nextLine();
+            s.nextLine();
+            Menu.printOptions();
+            String option = s.nextLine();
 
             if (option.equalsIgnoreCase("attack")) {
                 // Player attacks first
@@ -39,21 +41,17 @@ public class Logic {
                 } else {
                     System.out.println(e.getName() + " has been defeated!");
                 }
-
                 p.printHP();
                 e.printHP();
-            } else if (option.equalsIgnoreCase("defend")) {
-                p.defend();
-                e.changeHP((int)(e.getStrength() * -0.5), e.getName());
-                p.printHP();
-                e.printHP();
+            } else {
+                break;
             }
 
         }
 
         if (!p.isAlive()) {
             System.out.println("You have been defeated...");
-        } else {
+        } else if (!e.isAlive()) {
             System.out.println("You have defeated " + e.getName());
         }
     }

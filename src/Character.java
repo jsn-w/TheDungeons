@@ -1,30 +1,38 @@
-class Enemy {
-    private String name;
-    private int totalHP;
+public class Character {
+    private final String name;
     private int HP;
     private int speed = 5;
     private int strength;
-    private int floor;
+    private int level;
+    private int XP;
+    private Weapon w;
 
-    public Enemy (String name, int totalHP, int HP, int speed, int strength, int floor) {
+    public Character(String name, int HP, int speed, int strength, int level, int XP, Weapon w) {
         this.name = name;
-        this.totalHP = totalHP;
         this.HP = HP;
         this.speed = speed;
         this.strength = strength;
-        this.floor = floor;
+        this.level = level;
+        this.XP = XP;
     }
 
     public void printHP () {
         if (HP < 0) {
             HP = 0;
         }
-        System.out.println(name + "'s HP: " + HP + "/" + totalHP);
+        System.out.println(name + "'s HP: " + HP + "/100");
     }
 
-    public boolean isAlive () {
-        return HP > 0;
+    public void printLevel() {
+        int XPToLevelUp = level * 100;
+        if (XP >= XPToLevelUp) {
+            level++;
+            XP -= XPToLevelUp;
+        }
+        System.out.println("Level: " + level);
+        System.out.println("XP: " + XP + "/" + XPToLevelUp);
     }
+
     public void changeHP (int amount, String playerName) {
         HP += amount;
         System.out.println(playerName + " deals " + (amount * -1) + " damage to " + name);
@@ -33,16 +41,20 @@ class Enemy {
     public int getHP () {
         return HP;
     }
-    public int getTotalHP () {
-        return totalHP;
-    }
+
     public String getName () {
         return name;
     }
+
     public int getSpeed () {
         return speed;
     }
+
     public int getStrength () {
         return strength;
+    }
+
+    public boolean isAlive () {
+        return HP > 0;
     }
 }
