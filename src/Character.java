@@ -6,6 +6,7 @@ public class Character {
     private int level;
     private int XP;
     private Weapon w;
+    public static String[][] inventory;
 
     public Character(String name, int HP, int speed, int strength, int level, int XP, Weapon w) {
         this.name = name;
@@ -14,6 +15,10 @@ public class Character {
         this.strength = strength;
         this.level = level;
         this.XP = XP;
+        inventory = new String[][]{
+                {"Coins", "2"},
+                {"Health Potion", "0"}
+        };
     }
 
     public void printHP () {

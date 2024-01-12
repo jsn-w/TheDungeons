@@ -7,7 +7,7 @@ public class Menu {
     }
 
     public static void printIntro (String playerName) {
-        System.out.println("\nOkay, " +  playerName + " let's introduce you to the basics");
+        System.out.println("\nWelcome, " +  playerName + ". Your goal is to go through 5 rooms and kill all the dragons.");
         System.out.println("There is yourself, obviously, and there are enemies");
         System.out.println("You simply defeat all the enemies to win the game!\n");
         System.out.println("You will first fight an ogre");
