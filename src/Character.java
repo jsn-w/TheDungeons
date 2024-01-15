@@ -1,24 +1,13 @@
 public class Character {
     private final String name;
     private int HP;
-    private int speed = 5;
-    private int strength;
-    private int level;
-    private int XP;
     private Weapon w;
-    public static String[][] inventory;
+    static int healthPot;
 
-    public Character(String name, int HP, int speed, int strength, int level, int XP, Weapon w) {
+    public Character(String name, int HP, Weapon w) {
         this.name = name;
         this.HP = HP;
-        this.speed = speed;
-        this.strength = strength;
-        this.level = level;
-        this.XP = XP;
-        inventory = new String[][]{
-                {"Coins", "2"},
-                {"Health Potion", "0"}
-        };
+        this.w = w;
     }
 
     public void printHP () {
@@ -28,19 +17,9 @@ public class Character {
         System.out.println(name + "'s HP: " + HP + "/100");
     }
 
-    public void printLevel() {
-        int XPToLevelUp = level * 100;
-        if (XP >= XPToLevelUp) {
-            level++;
-            XP -= XPToLevelUp;
-        }
-        System.out.println("Level: " + level);
-        System.out.println("XP: " + XP + "/" + XPToLevelUp);
-    }
-
-    public void changeHP (int amount, String playerName) {
+    public void changeHP (Character c, int amount) {
         HP += amount;
-        System.out.println(playerName + " deals " + (amount * -1) + " damage to " + name);
+        System.out.println(c.name + " deals " + (amount * -1) + " damage to " + name);
     }
 
     public int getHP () {
@@ -51,15 +30,15 @@ public class Character {
         return name;
     }
 
-    public int getSpeed () {
-        return speed;
-    }
-
-    public int getStrength () {
-        return strength;
-    }
-
     public boolean isAlive () {
         return HP > 0;
+    }
+
+    public int getStrength() {
+        return w.getStrength();
+    }
+
+    public Weapon getWeapon() {
+        return w;
     }
 }
