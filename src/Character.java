@@ -22,6 +22,10 @@ public class Character {
         System.out.println(c.name + " deals " + (amount * -1) + " damage to " + name);
     }
 
+    public void changeHP (int amount) {
+        HP += amount;
+    }
+
     public int getHP () {
         return HP;
     }

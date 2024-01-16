@@ -1,10 +1,6 @@
 public class Menu {
 
-    private String playerName;
-
-    public Menu (String playerName) {
-        this.playerName = playerName;
-    }
+    private Menu () { }
 
     public static void printIntro (String playerName) {
         System.out.println("\nWelcome, " +  playerName + ".");
@@ -16,6 +12,7 @@ public class Menu {
         System.out.println("\nWhat would you like to do?");
         System.out.println("1. attack");
         System.out.println("2. search for potion");
-        System.out.print("3. quit\n>> ");
+        System.out.println("3. use health potion");
+        System.out.print("4. quit\n>> ");
     }
 }

@@ -1,12 +1,13 @@
 import java.util.Scanner;
 
 public class Room {
+    static int dragonsKilled;
+    static int totalDragons;
+
     private final Scanner s;
     private final boolean hasHealthPot;
     private boolean isSearched;
     private boolean isClear;
-    private int dragonsKilled;
-    private int totalDragons;
     private final Character[] enemyList;
     private final Character p;
     private Character e;
@@ -32,32 +33,6 @@ public class Room {
         String randomName = dragonNames[(int)(Math.random() * dragonNames.length)];
         Weapon w1 = new Weapon("_DragonAttackName_", 1, 0, 5, .2);
         return new Character(randomName + " dragon", 100, w1);
-    }
-
-    public void combat() {
-        while (p.isAlive() && e.isAlive()) {
-            System.out.println("Current weapon: " + p.getWeapon().getName() + ", level " + p.getWeapon().getLevel());
-            Menu.printOptions();
-            String option = s.nextLine();
-            while (!(option.equals("1") || option.equals("2") || option.equals("3"))) {
-                System.out.print("Enter a valid option >> ");
-                option = s.nextLine();
-            }
-            if (option.equals("1")) {
-                attack();
-            } else if (option.equals("2")){
-                search();
-            } else {
-                break;
-            }
-            System.out.print("Press [Enter] to continue >> ");
-            s.nextLine();
-        }
-        if (!p.isAlive()) {
-            System.out.println("You have been defeated...");
-        } else if (!e.isAlive()) {
-            System.out.println("You have defeated " + e.getName());
-        }
     }
 
     public void attack() {
@@ -95,6 +70,7 @@ public class Room {
         isSearched = true;
     }
 
+
     public void checkIsClear() {
         for (Character dragon : enemyList) {
             if (dragon == null) {
@@ -104,5 +80,24 @@ public class Room {
                 isClear = false;
             }
         }
+    }
+
+    public void usePotion() {
+        if (Character.healthPot > 0) {
+            if (p.getHP() == 100) {
+                System.out.println("You already have max health!");
+            } else {
+                int hpGained = (100 - p.getHP()) / 2;
+                p.changeHP(hpGained);
+                Character.healthPot--;
+                System.out.println("You have successfully used the health potion and gained " + hpGained + "HP");
+            }
+        } else {
+            System.out.println("You do not have any health potions.");
+        }
+    }
+
+    public Character getEnemy() {
+        return e;
     }
 }

@@ -2,7 +2,7 @@ public class Weapon {
     private String name;
     private int level;
     private int XP;
-    private int attackPower;
+    private final int attackPower;
     private double dodgeRate;
 
     public Weapon(String name, int level, int XP, int attackPower, double dodgeRate) {
@@ -39,7 +39,7 @@ public class Weapon {
     }
 
     public int getStrength() {
-        return attackPower;
+        return (int) ((attackPower + (Math.random() * 11 - 5)) * Math.pow(1.2, level - 1));
     }
 
     public int getLevel() {
