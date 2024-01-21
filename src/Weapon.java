@@ -13,7 +13,7 @@ public class Weapon {
         this.dodgeRate = dodgeRate;
     }
 
-    public String getName() {
+    public String getPlayerWeaponName() {
         if (level == 1) {
             name = "Wooden Sword";
         } else if (level == 2) {
@@ -28,14 +28,32 @@ public class Weapon {
         return name;
     }
 
-    public void printLevel() {
+    public String getEnemyWeaponName() {
+        if (level == 1) {
+            name = "name 1";
+        } else if (level == 2) {
+            name = "name 2";
+        } else if (level == 3) {
+            name = "name 3";
+        } else if (level == 4) {
+            name = "name 4";
+        } else if (level == 5) {
+            name = "name 5";
+        }
+        return name;
+    }
+
+    public void addXP(int XP) {
+        this.XP += XP;
+        updateLevel();
+    }
+
+    public void updateLevel() {
         int XPToLevelUp = level * 100;
         if (XP >= XPToLevelUp) {
             level++;
             XP -= XPToLevelUp;
         }
-        System.out.println("Level: " + level);
-        System.out.println("XP: " + XP + "/" + XPToLevelUp);
     }
 
     public int getStrength() {

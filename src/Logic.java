@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class Logic {
+    static int highScore = 0;
     private final Scanner s;
     private Weapon playerWeapon;
     private Character p;
@@ -15,10 +16,28 @@ public class Logic {
         playerName = s.nextLine();
 
         createCharacters();
-        r = new Room("Sun Temple", p);
-        combat();
+        startRoom("Sun Temple");
+        startRoom("Sun ahh");
+        int finalScore = p.getHP() / 5 + Character.healthPot * 2 + Room.roomNum * 5;
+        System.out.println("You have gotten a grand total of " + finalScore + " points!");
+        if (finalScore > highScore) {
+            highScore = finalScore;
+            System.out.println("Congrats! You have beaten the high score!");
+        }
+        System.out.println("\nWould you like to play again?");
+        if (s.nextLine().equals("y")) {
+            new Logic();
+        }
     }
 
+    public void startRoom(String name) {
+        if (p.isAlive()) {
+            r = new Room(name, p);
+        }
+        while (p.isAlive() && Room.dragonsKilled < r.getTotalDragons()) {
+            combat();
+        }
+    }
     public void createCharacters() {
         // Create player instances
         playerWeapon = new Weapon("Wooden Sword", 1, 0, 40, .2);
@@ -28,7 +47,7 @@ public class Logic {
 
     public void combat() {
         while (p.isAlive() && r.getEnemy().isAlive()) {
-            System.out.println("Current weapon: " + p.getWeapon().getName() + ", level " + p.getWeapon().getLevel());
+            System.out.println("Current weapon: " + p.getWeapon().getPlayerWeaponName() + ", level " + p.getWeapon().getLevel());
             Menu.printOptions();
             String option = s.nextLine();
             while (!(option.equals("1") || option.equals("2") || option.equals("3") || option.equals("4"))) {
@@ -43,13 +62,14 @@ public class Logic {
                 }
             }
             System.out.print("Press [Enter] to continue >> ");
+            Menu.clearScreen();
             s.nextLine();
         }
         if (!p.isAlive()) {
             System.out.println("You have been defeated...");
         } else if (!r.getEnemy().isAlive()) {
-            System.out.println("You have defeated " + r.getEnemy().getName());
             Room.dragonsKilled++;
+            playerWeapon.addXP(100);
         }
     }
 
