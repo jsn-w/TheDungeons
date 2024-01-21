@@ -2,6 +2,7 @@ public class Menu {
 
     private Menu () { }
 
+    // prints introduction
     public static void printIntro (String playerName) {
         System.out.println("\nHey, " +  playerName + ".");
         Menu.delay(1000);
@@ -13,6 +14,7 @@ public class Menu {
         Menu.delay(2000);
     }
 
+    // prints menu options
     public static void printOptions () {
         Menu.delay(1000);
         System.out.println("What would you like to do?");
@@ -22,11 +24,13 @@ public class Menu {
         System.out.print("4. quit\n>> ");
     }
 
+    // clears terminal screen
     public static void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
 
+    // delays screen
     public static void delay(int time) {
         try {
             Thread.sleep(time);

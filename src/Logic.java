@@ -2,10 +2,11 @@ import java.util.Scanner;
 
 public class Logic {
     static int highScore = 0;
+
     private final Scanner s;
+    private final String playerName;
     private Weapon playerWeapon;
     private Character p;
-    private final String playerName;
     private Room r;
 
     public Logic() {
@@ -24,6 +25,7 @@ public class Logic {
         gameEnding();
     }
 
+    // starting a room if the player is alive
     private void startRoom(String name) {
         if (p.isAlive()) {
             r = new Room(name, p);
@@ -32,6 +34,8 @@ public class Logic {
             combat();
         }
     }
+
+    // creates the player character
     private void createCharacters() {
         // Create player instances
         playerWeapon = new Weapon("Wooden Sword", 1, 0, 20, .2);
@@ -80,6 +84,4 @@ public class Logic {
             new Logic();
         }
     }
-
-
 }

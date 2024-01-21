@@ -13,6 +13,19 @@ public class Weapon {
         this.dodgeRate = dodgeRate;
     }
 
+    public int getStrength() {
+        return (int) ((attackPower + (Math.random() * 11 - 5)) * Math.pow(1.2, level - 1));
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public double getDodgeRate() {
+        return dodgeRate;
+    }
+
+    // states the weapon name based on it's level
     public String getPlayerWeaponName() {
         if (level == 1) {
             name = "Wooden Sword";
@@ -28,6 +41,7 @@ public class Weapon {
         return name;
     }
 
+    // currently not in use; for when the dragon attacks
     public String getEnemyWeaponName() {
         if (level == 1) {
             name = "name 1";
@@ -43,11 +57,13 @@ public class Weapon {
         return name;
     }
 
+    // adds xp to user and updates the level of the weapon
     public void addXP(int XP) {
         this.XP += XP;
         updateLevel();
     }
 
+    // adds xp to the weapon
     public void updateLevel() {
         int XPToLevelUp = level * 100;
         if (XP >= XPToLevelUp) {
@@ -55,18 +71,4 @@ public class Weapon {
             XP -= XPToLevelUp;
         }
     }
-
-    public int getStrength() {
-        return (int) ((attackPower + (Math.random() * 11 - 5)) * Math.pow(1.2, level - 1));
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public double getDodgeRate() {
-        return dodgeRate;
-    }
-
-
 }

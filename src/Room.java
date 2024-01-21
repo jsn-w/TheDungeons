@@ -29,6 +29,7 @@ public class Room {
         Menu.delay(1000);
     }
 
+    // create a dragon with a random name
     public Character createDragon() {
         String[] dragonNames = new String[] {"Emberclaw", "Frostbite", "Shadowspike", "Thunderwing", "Blazeheart", "Frostfang", "Infernoth", "Dreadwind"};
         String randomName = dragonNames[(int)(Math.random() * dragonNames.length)];
@@ -36,6 +37,15 @@ public class Room {
         return new Character(randomName + " dragon", 100, w);
     }
 
+    public Character getEnemy() {
+        return dragon1;
+    }
+
+    public int getTotalDragons() {
+        return totalDragons;
+    }
+
+    // logic for attacking
     public void attack() {
         Character e = enemyList[0];
         for (Character c : enemyList) {
@@ -51,7 +61,6 @@ public class Room {
         } else {
             System.out.println("The dragon dodged your attack!");
         }
-
         Menu.delay(1000);
         if (e.isAlive()) {
             if (p.getWeapon().getDodgeRate() < Math.random()) {
@@ -68,6 +77,7 @@ public class Room {
         e.printHP();
     }
 
+    // searching the room for potions
     public void search() {
         if (isSearched) {
             System.out.println("This room has already been searched");
@@ -84,6 +94,7 @@ public class Room {
         isSearched = true;
     }
 
+    // updates user health and uses potion
     public void usePotion() {
         if (Character.healthPot > 0) {
             if (p.getHP() == 100) {
@@ -97,13 +108,5 @@ public class Room {
         } else {
             System.out.println("You do not have any health potions.");
         }
-    }
-
-    public Character getEnemy() {
-        return dragon1;
-    }
-
-    public int getTotalDragons() {
-        return totalDragons;
     }
 }
