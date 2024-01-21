@@ -2,16 +2,17 @@ import java.util.Scanner;
 
 public class Room {
     static int dragonsKilled;
-    private int totalDragons;
     static int roomNum;
 
     private final boolean hasHealthPot;
-    private boolean isSearched;
     private final Character[] enemyList;
     private final Character p;
-    private Character dragon1;
-    private Character dragon2;
-    private Character dragon3;
+    private final Character dragon1;
+    private final Character dragon2;
+    private final Character dragon3;
+    private final int totalDragons;
+
+    private boolean isSearched;
 
     public Room(String name, Character p) {
         this.p = p;
@@ -23,13 +24,15 @@ public class Room {
         dragon2 = createDragon();
         dragon3 = createDragon();
         enemyList = new Character[] {dragon1, dragon2, dragon3};
-        System.out.println("You have stepped into the " + name + "!");
+        Menu.clearScreen();
+        System.out.println("\nYou have stepped into the " + name + "!\n");
+        Menu.delay(1000);
     }
 
     public Character createDragon() {
         String[] dragonNames = new String[] {"Emberclaw", "Frostbite", "Shadowspike", "Thunderwing", "Blazeheart", "Frostfang", "Infernoth", "Dreadwind"};
         String randomName = dragonNames[(int)(Math.random() * dragonNames.length)];
-        Weapon w = new Weapon("_DragonAttackName_", 1, 0, 10, .2);
+        Weapon w = new Weapon("Swipe", 1, 0, 10, .2);
         return new Character(randomName + " dragon", 100, w);
     }
 
@@ -49,7 +52,7 @@ public class Room {
             System.out.println("The dragon dodged your attack!");
         }
 
-        // Check if the enemy is still alive
+        Menu.delay(1000);
         if (e.isAlive()) {
             if (p.getWeapon().getDodgeRate() < Math.random()) {
                 p.changeHP(e, e.getStrength() * -1);
@@ -60,6 +63,7 @@ public class Room {
             System.out.println(e.getName() + " has been defeated!");
             dragonsKilled++;
         }
+        Menu.delay(1000);
         p.printHP();
         e.printHP();
     }
@@ -70,6 +74,7 @@ public class Room {
             return;
         }
         System.out.print("You searched this room and you...");
+        Menu.delay(1000);
         if (hasHealthPot) {
             System.out.println("found a health potion!");
             Character.healthPot++;
@@ -78,18 +83,6 @@ public class Room {
         }
         isSearched = true;
     }
-
-
-//    public void checkIsClear() {
-//        for (Character dragon : enemyList) {
-//            if (dragon == null) {
-//                continue;
-//            }
-//            if (dragon.isAlive()) {
-//                isClear = false;
-//            }
-//        }
-//    }
 
     public void usePotion() {
         if (Character.healthPot > 0) {
